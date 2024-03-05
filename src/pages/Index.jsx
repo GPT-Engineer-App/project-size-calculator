@@ -1,8 +1,9 @@
-import { Box, FormControl, FormLabel, HStack, Input, Radio, RadioGroup, Slider, SliderFilledTrack, SliderThumb, SliderTrack, Stack, Text, VStack, Wrap, WrapItem } from "@chakra-ui/react";
+import { Box, FormControl, FormLabel, HStack, Input, Radio, RadioGroup, Select, Slider, SliderFilledTrack, SliderThumb, SliderTrack, Stack, Text, VStack, Wrap, WrapItem } from "@chakra-ui/react";
 import { useState } from "react";
 
 const Index = () => {
   const [systems, setSystems] = useState(2);
+  const [selectedSystems, setSelectedSystems] = useState(Array(systems).fill(""));
   const [dataPoints, setDataPoints] = useState(1);
   const [trigger, setTrigger] = useState("Timer");
   const [dataQuantity, setDataQuantity] = useState(10);
@@ -41,13 +42,41 @@ const Index = () => {
           </Slider>
         </FormControl>
 
-        {systems > 2 &&
-          Array.from({ length: systems }, (_, index) => (
-            <FormControl key={index} id={`system-${index + 1}`}>
-              <FormLabel>{`System ${index + 1}`}</FormLabel>
-              <Input placeholder={`Name of system ${index + 1}`} />
-            </FormControl>
-          ))}
+        {systems > 1 &&
+          Array.from({ length: systems }, (_, index) => {
+            const systemId = `system${index + 1}`;
+            const handleChange = (event) => {
+              const newSystems = [...selectedSystems];
+              newSystems[index] = event.target.value === "Other" ? "" : event.target.value;
+              setSelectedSystems(newSystems);
+            };
+            return (
+              <FormControl key={index} id={systemId}>
+                <FormLabel>{`System ${index + 1}`}</FormLabel>
+                <Select name={systemId} id={systemId} onChange={handleChange} placeholder="Select system">
+                  <option value="1">Monitor G4</option>
+                  <option value="2">Monitor G5</option>
+                  <option value="3">Fortnox</option>
+                  <option value="4">Hogia</option>
+                  <option value="5">Visma</option>
+                  <option value="6">Custom</option>
+                  <option value="7">Other</option>
+                </Select>
+                {selectedSystems[index] === "7" && (
+                  <Input
+                    placeholder="Specify system"
+                    mt={2}
+                    value={selectedSystems[index]}
+                    onChange={(event) => {
+                      const newSystems = [...selectedSystems];
+                      newSystems[index] = event.target.value;
+                      setSelectedSystems(newSystems);
+                    }}
+                  />
+                )}
+              </FormControl>
+            );
+          })}
 
         <FormControl id="one-way-two-way">
           <VStack align="start">
