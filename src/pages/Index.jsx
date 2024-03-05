@@ -33,7 +33,7 @@ const Index = () => {
       <VStack spacing={4} align="stretch">
         <FormControl id="number-of-systems">
           <FormLabel>Number of systems</FormLabel>
-          <Slider defaultValue={2} min={2} max={20} onChange={handleSystemsChange}>
+          <Slider defaultValue={1} min={systems > 1 ? 2 : 1} max={20} onChange={handleSystemsChange}>
             <SliderTrack>
               <SliderFilledTrack />
             </SliderTrack>
@@ -50,11 +50,15 @@ const Index = () => {
           ))}
 
         <FormControl id="one-way-two-way">
-          <HStack>
+          <VStack align="start">
             <FormLabel>One-way or Two-way</FormLabel>
-            <input type="checkbox" checked={oneWay} onChange={handleOneWayChange} />
-            <Text>{oneWay ? "One-way" : "Two-way"}</Text>
-          </HStack>
+            <RadioGroup onChange={handleOneWayChange} value={oneWay ? "One-way" : "Two-way"}>
+              <HStack>
+                <Radio value="One-way">One-way</Radio>
+                <Radio value="Two-way">Two-way</Radio>
+              </HStack>
+            </RadioGroup>
+          </VStack>
         </FormControl>
 
         <FormControl id="number-of-datapoints">
@@ -80,7 +84,7 @@ const Index = () => {
 
         <FormControl id="quantity-of-data">
           <FormLabel>Quantity of data (estimated)</FormLabel>
-          <RadioGroup onChange={handleDataQuantityChange} value={dataQuantity}>
+          <RadioGroup onChange={handleDataQuantityChange} value={dataQuantity} defaultValue="< 10 MB">
             <Stack>
               <Radio value="< 10 MB">{"< 10 MB"}</Radio>
               <Radio value="< 100MB">{"< 100MB"}</Radio>
