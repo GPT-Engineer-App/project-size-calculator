@@ -24,8 +24,8 @@ const Index = () => {
     setDataQuantity(Number(value));
   };
 
-  const handleOneWayChange = (event) => {
-    setOneWay(event.target.checked);
+  const handleOneWayChange = (value) => {
+    setOneWay(Number(value));
   };
 
   return (
@@ -52,10 +52,10 @@ const Index = () => {
         <FormControl id="one-way-two-way">
           <VStack align="start">
             <FormLabel>One-way or Two-way</FormLabel>
-            <RadioGroup onChange={handleOneWayChange} value={oneWay ? "One-way" : "Two-way"}>
+            <RadioGroup onChange={handleOneWayChange} value={oneWay}>
               <HStack>
-                <Radio value="One-way">One-way</Radio>
-                <Radio value="Two-way">Two-way</Radio>
+                <Radio value={1}>One-way</Radio>
+                <Radio value={2}>Two-way</Radio>
               </HStack>
             </RadioGroup>
           </VStack>
