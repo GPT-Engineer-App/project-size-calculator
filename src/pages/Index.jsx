@@ -84,7 +84,7 @@ const Index = () => {
 
         <FormControl id="quantity-of-data">
           <FormLabel>Quantity of data (estimated)</FormLabel>
-          <RadioGroup onChange={handleDataQuantityChange} value={dataQuantity} defaultValue="< 10 MB">
+          <RadioGroup onChange={handleDataQuantityChange} value={dataQuantity}>
             <Stack>
               <Radio value="< 10 MB">{"< 10 MB"}</Radio>
               <Radio value="< 100MB">{"< 100MB"}</Radio>
