@@ -1,11 +1,8 @@
-import { Box, FormControl, FormLabel, HStack, Input, Radio, RadioGroup, Select, Slider, SliderFilledTrack, SliderThumb, SliderTrack, Stack, Text, VStack, Wrap, WrapItem } from "@chakra-ui/react";
+import { Box, FormControl, FormLabel, HStack, Input, Radio, RadioGroup, Slider, SliderFilledTrack, SliderThumb, SliderTrack, Stack, Text, VStack, Wrap, WrapItem } from "@chakra-ui/react";
 import { useState } from "react";
 
-const systemOptions = ["Monitor G4", "Monitor G5", "Fortnox", "Hogia", "Visma", "Custom", "Other"];
-
 const Index = () => {
-  const [systems, setSystems] = useState(Array(2).fill("Monitor G4"));
-  const [systemNames, setSystemNames] = useState(Array(2).fill("1"));
+  const [systems, setSystems] = useState(2);
   const [dataPoints, setDataPoints] = useState(1);
   const [trigger, setTrigger] = useState("Timer");
   const [dataQuantity, setDataQuantity] = useState(10);
@@ -46,37 +43,9 @@ const Index = () => {
 
         {systems > 2 &&
           Array.from({ length: systems }, (_, index) => (
-            <FormControl key={index} id={`system${index + 1}`}>
+            <FormControl key={index} id={`system-${index + 1}`}>
               <FormLabel>{`System ${index + 1}`}</FormLabel>
-              <Select
-                id={`system${index + 1}`}
-                placeholder="Select option"
-                onChange={(e) => {
-                  const newSystems = [...systems];
-                  newSystems[index] = e.target.value;
-                  setSystems(newSystems);
-                  const newSystemNames = [...systemNames];
-                  newSystemNames[index] = systemOptions[e.target.selectedIndex];
-                  setSystemNames(newSystemNames);
-                }}
-              >
-                {systemOptions.map((system, idx) => (
-                  <option key={idx} value={idx + 1}>
-                    {system}
-                  </option>
-                ))}
-              </Select>
-              {systemNames[index] === "Other" && (
-                <Input
-                  placeholder="Please specify"
-                  mt={2}
-                  onChange={(e) => {
-                    const newSystemNames = [...systemNames];
-                    newSystemNames[index] = e.target.value;
-                    setSystemNames(newSystemNames);
-                  }}
-                />
-              )}
+              <Input placeholder={`Name of system ${index + 1}`} />
             </FormControl>
           ))}
 
@@ -127,9 +96,9 @@ const Index = () => {
 
         <Box p={4} borderWidth="1px" borderRadius="md">
           <Text fontWeight="bold">Responses:</Text>
-          <Wrap spacing={2}>
+          <Wrap>
             <WrapItem>
-              <Text>Systems: {systems.join(", ")}</Text>
+              <Text>Systems: {systems}</Text>
             </WrapItem>
             <WrapItem>
               <Text>One-Way: {oneWay ? "Yes" : "No"}</Text>
