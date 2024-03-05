@@ -1,4 +1,4 @@
-import { Box, FormControl, FormLabel, HStack, Input, Radio, RadioGroup, Stack, Text, VStack, Wrap, WrapItem } from "@chakra-ui/react";
+import { Box, FormControl, FormLabel, HStack, Input, Radio, RadioGroup, Slider, SliderFilledTrack, SliderThumb, SliderTrack, Stack, Text, VStack, Wrap, WrapItem } from "@chakra-ui/react";
 import { useState } from "react";
 
 const Index = () => {
@@ -8,8 +8,8 @@ const Index = () => {
   const [dataQuantity, setDataQuantity] = useState("< 10 MB");
   const [oneWay, setOneWay] = useState(true);
 
-  const handleSystemsChange = (event) => {
-    setSystems(Number(event.target.value));
+  const handleSystemsChange = (value) => {
+    setSystems(value);
   };
 
   const handleDataPointsChange = (event) => {
@@ -33,15 +33,21 @@ const Index = () => {
       <VStack spacing={4} align="stretch">
         <FormControl id="number-of-systems">
           <FormLabel>Number of systems</FormLabel>
-          <Input type="number" value={systems} min={2} max={20} onChange={handleSystemsChange} />
+          <Slider defaultValue={2} min={2} max={20} onChange={handleSystemsChange}>
+            <SliderTrack>
+              <SliderFilledTrack />
+            </SliderTrack>
+            <SliderThumb fontSize="sm" boxSize="32px" children={systems} />
+          </Slider>
         </FormControl>
 
-        {Array.from({ length: systems }, (_, index) => (
-          <FormControl key={index} id={`system-${index + 1}`}>
-            <FormLabel>{`System ${index + 1}`}</FormLabel>
-            <Input placeholder={`Name of system ${index + 1}`} />
-          </FormControl>
-        ))}
+        {systems > 2 &&
+          Array.from({ length: systems }, (_, index) => (
+            <FormControl key={index} id={`system-${index + 1}`}>
+              <FormLabel>{`System ${index + 1}`}</FormLabel>
+              <Input placeholder={`Name of system ${index + 1}`} />
+            </FormControl>
+          ))}
 
         <FormControl id="one-way-two-way">
           <HStack>
