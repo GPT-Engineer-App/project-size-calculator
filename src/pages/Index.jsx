@@ -59,7 +59,12 @@ const Index = () => {
 
         <FormControl id="number-of-datapoints">
           <FormLabel>Number of datapoints</FormLabel>
-          <Input type="number" value={dataPoints} min={1} max={100} onChange={handleDataPointsChange} />
+          <Slider defaultValue={1} min={1} max={100} onChange={(val) => setDataPoints(val)}>
+            <SliderTrack>
+              <SliderFilledTrack />
+            </SliderTrack>
+            <SliderThumb fontSize="sm" boxSize="32px" children={dataPoints} />
+          </Slider>
         </FormControl>
 
         <FormControl id="trigger">
