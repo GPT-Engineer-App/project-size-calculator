@@ -5,7 +5,7 @@ const Index = () => {
   const [systems, setSystems] = useState(2);
   const [dataPoints, setDataPoints] = useState(1);
   const [trigger, setTrigger] = useState("Timer");
-  const [dataQuantity, setDataQuantity] = useState("< 10 MB");
+  const [dataQuantity, setDataQuantity] = useState(10);
   const [oneWay, setOneWay] = useState(true);
 
   const handleSystemsChange = (value) => {
@@ -20,8 +20,8 @@ const Index = () => {
     setTrigger(nextValue);
   };
 
-  const handleDataQuantityChange = (event) => {
-    setDataQuantity(event.target.value);
+  const handleDataQuantityChange = (value) => {
+    setDataQuantity(Number(value));
   };
 
   const handleOneWayChange = (event) => {
@@ -86,10 +86,10 @@ const Index = () => {
           <FormLabel>Quantity of data (estimated)</FormLabel>
           <RadioGroup onChange={handleDataQuantityChange} value={dataQuantity}>
             <Stack>
-              <Radio value="< 10 MB">{"< 10 MB"}</Radio>
-              <Radio value="< 100MB">{"< 100MB"}</Radio>
-              <Radio value="< 1 GB">{"< 1 GB"}</Radio>
-              <Radio value="> 1 GB">{"> 1 GB"}</Radio>
+              <Radio value={10}>{"< 10 MB"}</Radio>
+              <Radio value={100}>{"< 100MB"}</Radio>
+              <Radio value={1000}>{"< 1 GB"}</Radio>
+              <Radio value={1001}>{"> 1 GB"}</Radio>
             </Stack>
           </RadioGroup>
         </FormControl>
