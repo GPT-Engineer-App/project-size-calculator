@@ -106,7 +106,7 @@ const Index = () => {
             <HStack>
               <Radio value="Timer">Timer</Radio>
               <Radio value="Asynchronous">Asynchronous (webhook)</Radio>
-              <Radio value="OnDemand">OnDemand (button or CLI call)</Radio>
+              <Radio value="OnDemand">OnDemand (button or API call)</Radio>
             </HStack>
           </RadioGroup>
         </FormControl>
